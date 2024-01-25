@@ -1,20 +1,40 @@
-import React from 'react'
-import { Col, Container } from 'react-bootstrap'
+import React, { useContext } from 'react';
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import context from '../Context/context';
 
 const Cart = ({ open }) => {
-  return (
-    <Container fluid className='d-flex justify-content-end mt-2' style={{
-      position: 'relative', boxShadow: '-4px -4px 8px rgba(0, 0, 0, 0.1)',
-    }}>
-      <Col className='justify-content-end'
-        style={
-          {
-            position: 'absolute', width: '30%', height: '100vh', display: 'flex', alignItems: 'center', zIndex: 999, right: 0,
-            top: 0, backgroundColor: 'white', boxShadow: '-4px -4px 8px rgba(0, 0, 0, 0.1)'
-          }
-        } > Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus nesciunt accusantium laboriosam repudiandae, recusandae numquam. Tempora, a, commodi similique voluptates nobis ad pariatur enim rem maxime non cupiditate quod amet.</ Col>
-    </Container>
-  )
-}
+  const cartValue = useContext(context);
 
-export default Cart
+  return (
+    <Container>
+      <Row>
+        <Col style={{ display: 'flex', justifyContent: 'center' }}>Item</Col>
+        <Col style={{ display: 'flex', justifyContent: 'center' }}>Price</Col>
+        <Col style={{ display: 'flex', justifyContent: 'center' }}>Quantity</Col>
+      </Row>
+      {cartValue.items.length > 0 && (
+        <>
+          {cartValue.items.map((item) => (
+            <Row
+              key={item.id}
+              style={{ padding: '2.5rem 0', display: 'flex', alignItems: 'center', textAlign: 'center' }}
+            >
+              <Col style={{ display: 'flex', textAlign: 'center', alignItems: 'center', gap: '10px' }}>
+                <img src={item.image} alt="" style={{ width: '40%', height: '40%' }} />
+                {item.title}
+              </Col>
+              <Col style={{ display: 'flex', justifyContent: 'center' }}>${item.price}</Col>
+              <Col style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                <input type="number" value={item.quantity} style={{ width: '50%' }} />
+                <Button variant="danger">Remove</Button>
+              </Col>
+            </Row>
+          ))}
+        </>
+      )}
+      <Row style={{ display: 'flex', justifyContent: 'center', fontWeight: 'bold' }}>Total- {cartValue.totalAmount}</Row>
+    </Container>
+  );
+};
+
+export default Cart;

@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
+import context from '../Context/context';
+import { v4 as uuidv4 } from 'uuid';
 // import './product.css';
 
 const productsArr = [
@@ -27,6 +29,24 @@ const productsArr = [
 
 const Product = () => {
 
+  // const [selectedItem, setselectedItem] = useState([])
+
+  const contextValue = useContext(context)
+
+  const addtoCartHandler = (product) => {
+    // setselectedItem(prev => [...prev, product]);
+    const item = {
+      id: uuidv4(),
+      title: product.title,
+      image: product.imageUrl,
+      price: product.price,
+      quantity: 1,
+    }
+
+    console.log(item)
+  }
+
+
 
   return (
     <>
@@ -45,7 +65,7 @@ const Product = () => {
                     <Card.Text>
                       Price: ${product.price}
                     </Card.Text>
-                    <Button variant="primary">Add to Cart</Button>
+                    <Button variant="primary" onClick={() => addtoCartHandler(product)}>Add to Cart</Button>
                   </Card.Body>
                 </Card>
               </Col>

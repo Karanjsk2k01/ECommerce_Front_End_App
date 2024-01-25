@@ -5,17 +5,18 @@ import Footer from './components/Footer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Product from './components/Products/Product';
 import Cart from './components/Cart/Cart';
+import CartProvider from './components/Context/context-provider';
 
 
 
 function App() {
   return (
-    < >
+    <CartProvider>
       <CustomNavbar />
       <Product />
       <Footer />
       {/* <Cart /> */}
-    </>
+    </CartProvider>
   );
 }
 
