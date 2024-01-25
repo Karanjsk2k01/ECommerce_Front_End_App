@@ -1,0 +1,12 @@
+.Card {
+
+  margin-top: '20px';
+  display: 'flex';
+  align-items: 'center';
+}
+
+
+
+.image {
+  background-color: black;
+}
