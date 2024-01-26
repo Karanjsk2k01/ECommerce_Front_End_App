@@ -1,17 +1,20 @@
 import React, { useContext } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
-import context from '../Context/context';
+import context from '../../Context/context';
 
-const Cart = ({ open }) => {
+const Cart = ({ open, isCartVisible }) => {
   const cartValue = useContext(context);
+
 
   return (
     <Container>
-      <Row>
-        <Col style={{ display: 'flex', justifyContent: 'center' }}>Item</Col>
-        <Col style={{ display: 'flex', justifyContent: 'center' }}>Price</Col>
-        <Col style={{ display: 'flex', justifyContent: 'center' }}>Quantity</Col>
-      </Row>
+      {cartValue.items.length > 0 ? (
+        <Row>
+          <Col style={{ display: 'flex', justifyContent: 'center' }}>Item</Col>
+          <Col style={{ display: 'flex', justifyContent: 'center' }}>Price</Col>
+          <Col style={{ display: 'flex', justifyContent: 'center' }}>Quantity</Col>
+        </Row>) : ('')
+      }
       {cartValue.items.length > 0 && (
         <>
           {cartValue.items.map((item) => (
@@ -32,8 +35,13 @@ const Cart = ({ open }) => {
           ))}
         </>
       )}
-      <Row style={{ display: 'flex', justifyContent: 'center', fontWeight: 'bold' }}>Total- {cartValue.totalAmount}</Row>
-    </Container>
+      {cartValue.items.length > 0 ? (
+        <Row style={{ display: 'flex', justifyContent: 'center', fontWeight: 'bold' }}>Total- {cartValue.totalAmount}</Row>
+      ) : (
+        <Row style={{ display: 'flex', justifyContent: 'center', fontWeight: 'bold', marginTop: '12rem' }}>No items in cart</Row>
+      )
+      }
+    </Container >
   );
 };
 

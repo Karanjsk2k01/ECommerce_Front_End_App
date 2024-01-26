@@ -1,22 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
-import CustomNavbar from './components/Navbar';
-import Footer from './components/Footer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import Product from './components/Products/Product';
-import Cart from './components/Cart/Cart';
-import CartProvider from './components/Context/context-provider';
+import Home from './components/Home/Home';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import About from './components/About/About';
+import Store from './components/Store/Store';
 
+
+const router = createBrowserRouter([
+  { path: "/", element: <Home /> },
+  { path: "/Store", element: <Store /> },
+  { path: "/About", element: <About /> },
+
+]
+)
 
 
 function App() {
   return (
-    <CartProvider>
-      <CustomNavbar />
-      <Product />
-      <Footer />
-      {/* <Cart /> */}
-    </CartProvider>
+    <RouterProvider router={router} />
   );
 }
 
