@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Button, Card, Container, Row, Col, Offcanvas } from 'react-bootstrap';
 import context from '../../Context/context';
 import { v4 as uuidv4 } from 'uuid';
-import Cart from '../Cart/Cart';
+import Cart from '../../Store/Cart/Cart';
 // import './product.css';
 
 const productsArr = [
@@ -101,10 +101,6 @@ const Product = () => {
           </Offcanvas.Body>
         </Offcanvas>
       )}
-
-
-      )}
-
 
     </>
 

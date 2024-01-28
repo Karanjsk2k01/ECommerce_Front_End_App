@@ -6,8 +6,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import Cart from './Cart/Cart';
-import context from '../Context/context';
+import Cart from '../components/Store/Cart/Cart';
+import context from '../components/Context/context';
 
 const CustomNavbar = () => {
 

@@ -1,7 +1,7 @@
 import React from 'react'
-import CustomNavbar from '../Home/Navbar';
+import CustomNavbar from '../../layout/Navbar';
 import AboutSection from './AboutSection';
-import Footer from '../Home/Footer';
+import Footer from '../../layout/Footer';
 
 const About = () => {
   return (

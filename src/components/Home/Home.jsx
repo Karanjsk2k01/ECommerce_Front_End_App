@@ -1,15 +1,11 @@
-import CustomNavbar from './Navbar';
-import Product from './Products/Product';
-import Footer from './Footer';
-import CartProvider from '../Context/context-provider';
-
+import CustomNavbar from "../../layout/Navbar"
+import HomeSection from "./HomeSection";
 
 const Home = () => {
   return (
     <>
       <CustomNavbar />
-      <Product />
-      <Footer />
+      <HomeSection />
     </>
 
   )
