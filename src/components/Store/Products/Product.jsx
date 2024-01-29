@@ -1,36 +1,12 @@
 import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Card, Container, Row, Col, Offcanvas } from 'react-bootstrap';
 import context from '../../Context/context';
-import { v4 as uuidv4 } from 'uuid';
+
 import Cart from '../../Store/Cart/Cart';
 // import './product.css';
+import productsArr from '../../product';
 
-const productsArr = [
-  {
-    id: uuidv4(),
-    title: 'Colors',
-    price: 100,
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
-  },
-  {
-    id: uuidv4(),
-    title: 'Black and white Colors',
-    price: 50,
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-  },
-  {
-    id: uuidv4(),
-    title: 'Yellow and Black Colors',
-    price: 70,
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-  },
-  {
-    id: uuidv4(),
-    title: 'Blue Color',
-    price: 100,
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
-  }
-];
 
 const Product = () => {
 
@@ -70,16 +46,22 @@ const Product = () => {
           {
             productsArr.map((product) => (
               <Col key={product.id} sm={6} md={6} lg={4} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+
                 <Card className="Card" style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <Card.Img variant="top" src={product.imageUrl} style={{ maxWidth: '100%', height: 'auto', transform: 'scale(1)' }} />
+                  <Link to={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Card.Img variant="top" src={product.imageUrl} style={{ maxWidth: '100%', height: 'auto', transform: 'scale(1)' }} />
+                  </Link>
                   <Card.Body style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Card.Title>{product.title}</Card.Title>
-                    <Card.Text>
-                      Price: ${product.price}
-                    </Card.Text>
+                    <Link to={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }} >
+                      <Card.Title style={{ padding: '5px 0', textAlign: 'center' }}>{product.title}</Card.Title>
+                      <Card.Text style={{ padding: '10px 0', textAlign: 'center' }}>
+                        Price: ${product.price}
+                      </Card.Text>
+                    </Link>
                     <Button variant="primary" onClick={() => addtoCartHandler(product)}>Add to Cart</Button>
                   </Card.Body>
                 </Card>
+
               </Col>
             ))
           }
