@@ -17,7 +17,7 @@ const AboutSection = () => {
 
           {/* Text Content Column */}
           <Col xs={12} md={6} lg={6} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', marginBottom: '1rem' }}>
-            <p style={{ width: '80%' }}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. At eaque nobis quidem voluptate? Molestiae, nihil? Blanditiis corporis aut laborum quia dolorum, tempore in, voluptatibus alias quod, inventore cumque veniam natus?</p>
+            <p className="text-break" style={{ width: '80%' }}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. At eaque nobis quidem voluptate? Molestiae, nihil? Blanditiis corporis aut laborum quia dolorum, tempore in, voluptatibus alias quod, inventore cumque veniam natus?</p>
           </Col>
         </Row>
       </Container>

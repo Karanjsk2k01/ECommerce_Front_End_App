@@ -45,6 +45,7 @@ const CustomNavbar = () => {
                 <Nav.Link href="/" style={{ fontWeight: "bold", marginLeft: '10px' }}>Home</Nav.Link>
                 <Nav.Link href="/Store" style={{ fontWeight: "bold", marginLeft: '10px' }}>Store</Nav.Link>
                 <Nav.Link href="/About" style={{ fontWeight: "bold", marginLeft: '10px' }}>About</Nav.Link>
+                <Nav.Link href="/Contact" style={{ fontWeight: "bold", marginLeft: '10px' }}>Contact</Nav.Link>
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

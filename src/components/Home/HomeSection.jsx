@@ -52,7 +52,7 @@ const HomeSection = () => {
       </Container >
       <Container fluid className="d-flex flex-column justify-content-center align-items-center flex-grow-1 p-5 container-xl" >
         <h5 style={{ textAlign: 'center', fontWeight: 'bold', padding: '2rem 0' }}>TOURS</h5>
-        <Table class="table table-striped" className="d-flex flex-column justify-content-center' align-items-center flex-grow-1 pt-5 " style={{ margin: '0px 0', flexWrap: 'wrap' }}>
+        <Table class="table table-striped" className="d-flex flex-column justify-content-center' align-items-center flex-grow-1  " style={{ margin: '0px 0', flexWrap: 'wrap' }}>
           <tbody>
             {concertEvents.map((item, index) => (
               <tr key={index}>
@@ -60,7 +60,8 @@ const HomeSection = () => {
                 <td style={{ textAlign: 'center' }}>{item.date}</td>
                 <td style={{ textAlign: 'center' }}>{item.city}</td>
                 <td >{item.venue}</td>
-                <td style={{ textAlign: 'center' }}><Button>Book Tickets</Button></td>
+                <td style={{ textAlign: 'center' }}>
+                  <Button className='btn-info' >Book Tickets</Button></td>
               </tr>
             ))}
           </tbody>
