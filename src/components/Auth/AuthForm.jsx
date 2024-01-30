@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import classes from './AuthForm.module.css';
 import AuthContext from '../Context/Auth-context';
+import CustomNavbar from '../../layout/Navbar';
+import Footer from '../../layout/Footer';
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -88,43 +90,46 @@ const AuthForm = () => {
   }
 
   return (
-    <section className={classes.auth}>
-      <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
-      <form onSubmit={submitHandler}>
-        <div className={classes.control}>
-          <label htmlFor='email'>Your Email</label>
-          <input type='email' id='email' required ref={emailRef} />
-        </div>
-        <div className={classes.control}>
-          <label htmlFor='password'>Your Password</label>
-          <input
-            type='password'
-            id='password'
-            required
-            ref={passwordRef}
-          />
-        </div>
-        <div className={classes.actions}>
-          {!loader &&
-            <button>
-              {isLogin ? 'login' : 'Create Account'}
+    <>
+      <CustomNavbar />
+      <section className={classes.auth}>
+        <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
+        <form onSubmit={submitHandler}>
+          <div className={classes.control}>
+            <label htmlFor='email'>Your Email</label>
+            <input type='email' id='email' required ref={emailRef} />
+          </div>
+          <div className={classes.control}>
+            <label htmlFor='password'>Your Password</label>
+            <input
+              type='password'
+              id='password'
+              required
+              ref={passwordRef}
+            />
+          </div>
+          <div className={classes.actions}>
+            {!loader &&
+              <button>
+                {isLogin ? 'login' : 'Create Account'}
+              </button>
+            }
+            {loader &&
+              <button>
+                loading..
+              </button>
+            }
+            <button
+              type='button'
+              className={classes.toggle}
+              onClick={switchAuthModeHandler}
+            >
+              {isLogin ? 'Create new account' : 'Login with existing account'}
             </button>
-          }
-          {loader &&
-            <button>
-              loading..
-            </button>
-          }
-          <button
-            type='button'
-            className={classes.toggle}
-            onClick={switchAuthModeHandler}
-          >
-            {isLogin ? 'Create new account' : 'Login with existing account'}
-          </button>
-        </div>
-      </form>
-    </section>
+          </div>
+        </form>
+      </section>
+    </>
   );
 };
 

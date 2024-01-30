@@ -40,10 +40,25 @@ const CustomNavbar = () => {
 
   return (
     <>
-      <Navbar expand={expand} className="justify-content-center flex-grow-1" style={{ height: '6rem', overflowX: 'hidden', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-        <Container fluid style={{ overflowX: 'hidden', display: 'flex', justifyContent: 'space-around' }}>
-          <Navbar.Brand href="/" style={{ fontWeight: "bold", flexGrow: 1, display: 'flex', justifyContent: 'center' }}>E-Commerce</Navbar.Brand>
-          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+      <Navbar
+        expand={expand}
+        className="justify-content-center flex-grow-1"
+        style={{ height: '6rem', overflowX: 'hidden', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}
+      >
+        <Container
+          fluid
+          style={{ overflowX: 'hidden', display: 'flex', justifyContent: 'space-around' }}
+        >
+          <Navbar.Brand
+            href="/"
+            style={{ fontWeight: "bold", flexGrow: 1, display: 'flex', justifyContent: 'center' }}
+          >E-Commerce
+          </Navbar.Brand>
+
+          <Navbar.Toggle
+            aria-controls={`offcanvasNavbar-expand-${expand}`}
+          />
+
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${expand}`}
             aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
@@ -51,8 +66,13 @@ const CustomNavbar = () => {
           >
             <Offcanvas.Header closeButton>
             </Offcanvas.Header>
-            <Offcanvas.Body className="justify-content-center flex-grow-1" style={{ margin: '0 40px', display: "flex", alignItems: 'center' }}>
-              <Nav className="justify-content-center flex-grow-1" >
+            <Offcanvas.Body
+              className="justify-content-center flex-grow-1"
+              style={{ margin: '0 40px', display: "flex", alignItems: 'center' }}
+            >
+              <Nav
+                className="justify-content-center flex-grow-1"
+              >
                 <Nav.Link href="/" style={{ fontWeight: "bold", marginLeft: '10px' }}>Home</Nav.Link>
 
                 {authContextValue.isLoggenIn && <Nav.Link href="/Store" style={{ fontWeight: "bold", marginLeft: '10px' }}>Store</Nav.Link>}
@@ -62,7 +82,7 @@ const CustomNavbar = () => {
 
                 {!authContextValue.isLoggenIn && <Nav.Link href='/Auth' style={{ fontWeight: "bold", marginLeft: '10px' }}>Login</Nav.Link>}
 
-                {authContextValue.isLoggenIn && <Nav.Link href='/Auth' style={{ fontWeight: "bold", marginLeft: '10px' }} onClick={logoutHandler}>Logout</Nav.Link>}
+                {authContextValue.isLoggenIn && <Nav.Link style={{ fontWeight: "bold", marginLeft: '10px' }} onClick={logoutHandler}>Logout</Nav.Link>}
 
               </Nav>
             </Offcanvas.Body>
