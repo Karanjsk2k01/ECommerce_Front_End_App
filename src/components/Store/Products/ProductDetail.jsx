@@ -1,22 +1,36 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import productsArr from '../../product';
 import CustomNavbar from '../../../layout/Navbar';
 import Footer from '../../../layout/Footer';
 import context from '../../Context/context';
+import AuthContext from '../../Context/Auth-context';
+import { storeCartItemInBackend, getCartItemsFromBackend } from '../../BackEndFetch';
+
 
 
 const ProductDetail = () => {
-  const { id } = useParams(); // Get the id parameter from the URL
+
+
+  const { id } = useParams();
 
   // Find the product with the matching id from productsArr
   const product = productsArr.find((p) => p.id === id);
+
   const contextValue = useContext(context)
+  const AuthValue = useContext(AuthContext)
+
+  const sanitizeEmail = (email) => {
+    return email.replace(/[@.]/g, '');
+  };
+
+  const email = sanitizeEmail(AuthValue.emailId);
 
   if (!product) {
     return <p>Product not found</p>;
   }
+
 
   const addtoCartHandler = (product) => {
     const item = {
@@ -26,9 +40,11 @@ const ProductDetail = () => {
       price: product.price,
       quantity: 1,
     }
-
+    storeCartItemInBackend(email, item)
     contextValue.addItem(item)
   }
+
+
 
   return (
     <>

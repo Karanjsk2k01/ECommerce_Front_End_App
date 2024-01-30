@@ -1,29 +1,39 @@
 export const storeCartItemInBackend = async (userEmail, cartItem) => {
-
-  const apiUrl = `https://crudcrud.com/api/286e912cb78b43a59491ea44fe915e0b/${userEmail}`;
-
   try {
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(cartItem),
-    });
+    const response = await fetch(`https://react-api-demo-f9b0e-default-rtdb.firebaseio.com/cart/${encodeURIComponent(userEmail)}.json`);
 
     if (response.ok) {
-      console.log('Cart item stored in backend successfully.');
+      const currentCartData = await response.json() || [];
+
+      currentCartData.push(cartItem)
+
+      // Store the updated cart data back in the backend
+      const updateResponse = await fetch(`https://react-api-demo-f9b0e-default-rtdb.firebaseio.com/cart/${encodeURIComponent(userEmail)}.json`, {
+        method: 'PUT',
+        body: JSON.stringify(currentCartData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (updateResponse.ok) {
+        console.log('Cart item stored in backend successfully.');
+      } else {
+        console.error('Failed to store cart item in backend.');
+      }
+
     } else {
-      console.error('Failed to store cart item in backend.');
+      console.error('Failed to fetch current cart data from backend.');
     }
   } catch (error) {
     console.error('Error storing cart item in backend:', error);
   }
 };
 
+
 export const getCartItemsFromBackend = async (userEmail) => {
 
-  const apiUrl = `https://crudcrud.com/api/286e912cb78b43a59491ea44fe915e0b/${userEmail}`;
+  const apiUrl = `https://react-api-demo-f9b0e-default-rtdb.firebaseio.com/cart/${encodeURIComponent(userEmail)}.json`;
 
   try {
     const response = await fetch(apiUrl, {
@@ -31,7 +41,6 @@ export const getCartItemsFromBackend = async (userEmail) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      mode: 'cors',
     });
 
 

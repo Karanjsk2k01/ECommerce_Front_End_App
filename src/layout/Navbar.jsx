@@ -9,13 +9,14 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import Cart from '../components/Store/Cart/Cart';
 import context from '../components/Context/context';
 import AuthContext from '../components/Context/Auth-context';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 const CustomNavbar = () => {
 
   const authContextValue = useContext(AuthContext)
   const navigate = useNavigate()
+  const location = useLocation()
   const contextValue = useContext(context)
   const [open, setOpen] = useState(false);
   const expand = 'lg'; // Choose the desired expand value (e.g., lg)
@@ -37,6 +38,9 @@ const CustomNavbar = () => {
   const total = contextValue.items.reduce((accumulator, item) => {
     return accumulator + item.quantity;
   }, 0);
+
+  const isCartVisible = location.pathname.startsWith('/Store') || location.pathname.startsWith('/product');
+
 
   return (
     <>
@@ -87,10 +91,10 @@ const CustomNavbar = () => {
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
-          <Nav className="justify-content-end flex-grow-0.5" style={{ margin: '0 40px', display: "flex", justifyContent: 'center', alignItems: 'center', flex: 1 }} onClick={handlerOpen}>
+          {isCartVisible && <Nav className="justify-content-end flex-grow-0.5" style={{ margin: '0 40px', display: "flex", justifyContent: 'center', alignItems: 'center', flex: 1 }} onClick={handlerOpen}>
             <Nav.Link href="#" style={{ fontWeight: "bold", margin: '0 1px', flexGrow: 1, display: "flex", justifyContent: 'end' }}>Cart-{total}</Nav.Link>
             <i className="fas fa-shopping-cart mx-2" style={{ fontWeight: "bold", margin: '0 1px', flexGrow: 1 }}></i>
-          </Nav>
+          </Nav>}
         </Container>
 
       </Navbar >

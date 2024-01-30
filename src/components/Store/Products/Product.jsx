@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, Container, Row, Col, Offcanvas } from 'react-bootstrap';
 import context from '../../Context/context';
@@ -12,6 +12,8 @@ import { storeCartItemInBackend, getCartItemsFromBackend } from '../../BackEndFe
 
 const Product = () => {
 
+  const isMounted = useRef(true);
+
   const [isCartVisible, setCartVisible] = useState(false);
 
   const contextValue = useContext(context)
@@ -22,6 +24,55 @@ const Product = () => {
   };
 
   const email = sanitizeEmail(AuthValue.emailId)
+
+  useEffect(() => {
+
+    if (isMounted.current) {
+      const fetchCartItems = async () => {
+        try {
+          const items = await getCartItemsFromBackend(email);
+
+          const loadedCart = [];
+
+          for (const key in items) {
+            const cartItem = items[key];
+
+            // Separate each cart item and push it to the context API
+            contextValue.addItem({
+              id: cartItem.id,
+              title: cartItem.title,
+              image: cartItem.image,
+              price: cartItem.price,
+              quantity: cartItem.quantity,
+            });
+
+            // Optionally, you can also push each cart item to the local loadedCart array
+            loadedCart.push({
+              id: cartItem.id,
+              title: cartItem.title,
+              image: cartItem.image,
+              price: cartItem.price,
+              quantity: cartItem.quantity,
+            });
+          }
+
+          return loadedCart
+
+        } catch (error) {
+          console.error('Error fetching cart items:', error);
+
+        }
+      };
+
+
+
+      fetchCartItems()
+      isMounted.current = false;
+
+    }
+  }, []);
+
+
 
   const addtoCartHandler = (product) => {
     const item = {
@@ -46,20 +97,6 @@ const Product = () => {
   const hideCartHandler = () => {
     setCartVisible(false);
   };
-
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const items = await getCartItemsFromBackend(email);
-        contextValue.addItem(items);
-      } catch (error) {
-        console.error('Error fetching cart items:', error);
-      }
-    };
-
-    fetchCartItems();
-  }, [contextValue.items]);
-
 
 
 
