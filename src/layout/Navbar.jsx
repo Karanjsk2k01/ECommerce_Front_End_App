@@ -8,9 +8,14 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Cart from '../components/Store/Cart/Cart';
 import context from '../components/Context/context';
+import AuthContext from '../components/Context/Auth-context';
+import { useNavigate } from 'react-router-dom';
+
 
 const CustomNavbar = () => {
 
+  const authContextValue = useContext(AuthContext)
+  const navigate = useNavigate()
   const contextValue = useContext(context)
   const [open, setOpen] = useState(false);
   const expand = 'lg'; // Choose the desired expand value (e.g., lg)
@@ -21,6 +26,12 @@ const CustomNavbar = () => {
 
   const handlerClose = () => {
     setOpen(false);
+  }
+
+  const logoutHandler = () => {
+    authContextValue.logout()
+
+    navigate('/')
   }
 
   const total = contextValue.items.reduce((accumulator, item) => {
@@ -43,9 +54,16 @@ const CustomNavbar = () => {
             <Offcanvas.Body className="justify-content-center flex-grow-1" style={{ margin: '0 40px', display: "flex", alignItems: 'center' }}>
               <Nav className="justify-content-center flex-grow-1" >
                 <Nav.Link href="/" style={{ fontWeight: "bold", marginLeft: '10px' }}>Home</Nav.Link>
-                <Nav.Link href="/Store" style={{ fontWeight: "bold", marginLeft: '10px' }}>Store</Nav.Link>
+
+                {authContextValue.isLoggenIn && <Nav.Link href="/Store" style={{ fontWeight: "bold", marginLeft: '10px' }}>Store</Nav.Link>}
+
                 <Nav.Link href="/About" style={{ fontWeight: "bold", marginLeft: '10px' }}>About</Nav.Link>
                 <Nav.Link href="/Contact" style={{ fontWeight: "bold", marginLeft: '10px' }}>Contact</Nav.Link>
+
+                {!authContextValue.isLoggenIn && <Nav.Link href='/Auth' style={{ fontWeight: "bold", marginLeft: '10px' }}>Login</Nav.Link>}
+
+                {authContextValue.isLoggenIn && <Nav.Link href='/Auth' style={{ fontWeight: "bold", marginLeft: '10px' }} onClick={logoutHandler}>Logout</Nav.Link>}
+
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

@@ -10,13 +10,16 @@ import reportWebVitals from './reportWebVitals';
 import '../node_modules/react-bootstrap/dist/react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CartProvider from './components/Context/context-provider';
+import { AuthProvider } from './components/Context/Auth-context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <CartProvider>
-      <App />
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <App />
+      </CartProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
 
