@@ -1,30 +1,31 @@
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Home from './components/Home/Home';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import BrowserRouter, Routes, and Route
-import About from './components/About/About';
-import Store from './components/Store/Store';
-import Contact from './components/Contact/Contact';
-import ProductDetail from './components/Store/Products/ProductDetail';
-import AuthForm from './components/Auth/AuthForm';
-import { useContext } from 'react';
-import { redirect } from 'react-router-dom';
-import AuthContext from './components/Context/Auth-context';
-
+import React, { useContext } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Home from './Home';
+import Store from './Store';
+import About from './About';
+import Contact from './Contact';
+import ProductDetail from './ProductDetail';
+import AuthForm from './AuthForm';
+import { AuthContext } from './AuthContext';  // Assuming AuthContext is exported from AuthContext file
 
 function App() {
-
-  const AuthContextValue = useContext(AuthContext)
-
-  const isLoggenIn = AuthContextValue.isLoggenIn
+  const authContextValue = useContext(AuthContext);
+  const isLoggenIn = authContextValue.isLoggenIn;
 
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
 
-        {isLoggenIn && <Route path="/Store" element={<Store />} />}
-        {!isLoggenIn && <redirect to="/" />}
+        {isLoggenIn ? (
+          <>
+            <Route path="/Store" element={<Store />} />
+            {/* Add other logged-in routes as needed */}
+          </>
+        ) : (
+          <Route path="/Store" element={<Navigate to="/" />} />
+        )}
+
         <Route path="/About" element={<About />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/product/:id" element={<ProductDetail />} />
@@ -35,4 +36,3 @@ function App() {
 }
 
 export default App;
-
