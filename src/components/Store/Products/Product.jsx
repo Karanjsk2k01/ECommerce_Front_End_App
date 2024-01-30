@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, Container, Row, Col, Offcanvas } from 'react-bootstrap';
 import context from '../../Context/context';
@@ -6,6 +6,8 @@ import context from '../../Context/context';
 import Cart from '../../Store/Cart/Cart';
 // import './product.css';
 import productsArr from '../../product';
+import AuthContext from '../../Context/Auth-context';
+import { storeCartItemInBackend, getCartItemsFromBackend } from '../../BackEndFetch';
 
 
 const Product = () => {
@@ -13,6 +15,13 @@ const Product = () => {
   const [isCartVisible, setCartVisible] = useState(false);
 
   const contextValue = useContext(context)
+  const AuthValue = useContext(AuthContext)
+
+  const sanitizeEmail = (email) => {
+    return email.replace(/[@.]/g, '');
+  };
+
+  const email = sanitizeEmail(AuthValue.emailId)
 
   const addtoCartHandler = (product) => {
     const item = {
@@ -23,7 +32,11 @@ const Product = () => {
       quantity: 1,
     }
 
+
+    storeCartItemInBackend(email, item)
     contextValue.addItem(item)
+
+
   }
 
   const showCartHandler = () => {
@@ -33,6 +46,20 @@ const Product = () => {
   const hideCartHandler = () => {
     setCartVisible(false);
   };
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      try {
+        const items = await getCartItemsFromBackend(email);
+        contextValue.addItem(items);
+      } catch (error) {
+        console.error('Error fetching cart items:', error);
+      }
+    };
+
+    fetchCartItems();
+  }, [contextValue.items]);
+
 
 
 

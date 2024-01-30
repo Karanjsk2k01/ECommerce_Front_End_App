@@ -4,24 +4,17 @@ import { useReducer } from 'react'
 
 const cartReducer = (state, action) => {
   if (action.type === 'Add_item') {
-    //checking items already exists
     let items = [...state.items];
-    let itemExist = items.findIndex(item => item.id === action.item.id)
+    let itemExist = items.findIndex(item => item.id === action.item.id);
 
     if (itemExist !== -1) {
-      //updating the quantity of exisiting item
-
       const updatedItems = [...state.items];
-
       const updatedExistingItem = { ...updatedItems[itemExist] };
 
       updatedExistingItem.quantity += action.item.quantity;
-
       updatedItems[itemExist] = updatedExistingItem;
 
-      //updating the totalAmount with current state value and action value
-
-      const updatedAmount = state.totalAmount + action.item.price * action.item.quantity;
+      const updatedAmount = state.totalAmount + action.item.quantity; // consider using just action.item.quantity
 
       return {
         items: updatedItems,
@@ -30,17 +23,17 @@ const cartReducer = (state, action) => {
     }
 
     const newItem = [...state.items, action.item];
-
     const updatedTotalAmount = state.totalAmount + (action.item.price * action.item.quantity);
 
     return {
       items: newItem,
       totalAmount: updatedTotalAmount
-    }
-
-    return state;
+    };
   }
-}
+
+  return state; // Move this line outside of the if block
+};
+
 
 
 const CartProvider = (props) => {

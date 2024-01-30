@@ -1,4 +1,4 @@
-
+import { toBeEmpty } from "@testing-library/jest-dom/dist/matchers";
 import React, { createContext, useEffect, useState } from "react";
 
 
@@ -6,6 +6,7 @@ const AuthContext = React.createContext({
 
   token: '',
   isLoggenIn: false,
+  emailId: null,
   login: (token) => { },
   logout: () => { }
 
@@ -15,8 +16,9 @@ const AuthContext = React.createContext({
 export const AuthProvider = (props) => {
 
   let initialtoken = localStorage.getItem('token')
+  let initialEmail = localStorage.getItem('email')
   const [token, settoken] = useState(initialtoken);
-
+  const [email, setEmail] = useState(initialEmail)
 
   useEffect(() => {
     if (token) {
@@ -44,11 +46,11 @@ export const AuthProvider = (props) => {
 
   const isLoggenIn = !!token;
 
-  const loginHandler = (token) => {
+  const loginHandler = (token, email) => {
     settoken(token);
-
+    setEmail(email)
     localStorage.setItem('token', token)
-
+    localStorage.setItem('email', email)
   }
 
   const logoutHandler = () => {
@@ -61,6 +63,7 @@ export const AuthProvider = (props) => {
 
     token: token,
     isLoggenIn: isLoggenIn,
+    emailId: email,
     login: loginHandler,
     logout: logoutHandler
   }

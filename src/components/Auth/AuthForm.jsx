@@ -63,9 +63,8 @@ const AuthForm = () => {
 
       const successUser = await response.json();
 
-      console.log(successUser)
 
-      contextValue.login(successUser.idToken)
+      contextValue.login(successUser.idToken, successUser.email)
 
       e.target.reset();
 
